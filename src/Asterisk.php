@@ -83,14 +83,12 @@ class Asterisk{
         $this->request  = 'Action: Login'.$this->space(1);
         $this->request .= 'Username: '.$this->username.$this->space(1);
         $this->request .= 'Secret: '.$this->password.$this->space(2); 
-        //
         foreach($this->queryRequest as $key => $value){
             if(!empty($value)){
                 $this->request .= $key.': '.$value.$this->space(1);
             }
         }
         $this->request .= $this->space(1);
-        //
         $this->request .= 'Action: Logoff'.$this->space(2);
     }
     public function amiRequest($function=null){
@@ -99,7 +97,6 @@ class Asterisk{
         stream_set_timeout($this->socket, $this->streamTimeout);
         fputs($this->socket,$this->request);
         $wrets=fgets($this->socket);
-        //
         $array=array();
         while (!feof($this->socket)){
            $t = fgets($this->socket);

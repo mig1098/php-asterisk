@@ -9,21 +9,15 @@ class ManagerAction{
     }
     public function Logoff(){
     }
-    public function Queues($array=array()){
+    public function Queues($result=array()){
         /******************************************************************
         # Show queues information.
         Action: QueueStatus
         *******************************************************************/
-        if(!empty($array)){
-            $req = $array;
-        }else{
-            $req = array(
-                'Action'=>'Queues'
-            );
-        }
-        return $this->parent->queryRequest($req);
+        print('<pre>');
+        print_r($result);
     }
-    public function QueueStatus($array=array()){
+    public function QueueStatus($result=array()){
         /******************************************************************
         # Show queues information.
         Action: QueueStatus
@@ -35,19 +29,17 @@ class ManagerAction{
         Queue - Limit the response to the status of the specified queue.
         Member - Limit the response to the status of the specified member. 
         *******************************************************************/
-        if(!empty($array)){
-            $req = $array;
-        }else{
-            $req = array(
-                'Action'   => 'QueueStatus',
-                'ActionID' => '',
-                'Queue'    => '',
-                'Member'   => ''
-            );
-        }
-        return $this->parent->queryRequest($req);
+        var_dump($result);
+        
     }
-    public function call($array=array()){
+    public function call($array=array(),$function=''){
+        
+        if(!empty($function) && is_callable(array($this,$function))){ 
+            $obj = $this;
+            return $this->parent->queryRequest($array,function($array)use($obj,$function){
+                return $obj->$function($array);
+            });
+        }
         return $this->parent->queryRequest($array);
     }
     public function test(){

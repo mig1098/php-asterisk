@@ -7,22 +7,25 @@ class Ami extends Asterisk{
      * Manager Action
      **/
     private $managerAction;
+    private $callfunction;
     
     public function __construct($config){
         parent::__construct($config);
     }
     
     public function output(){
-        return parent::amiRequest();
+        return parent::amiRequest($this->callfunction);
     }
     
-    public function queryRequest($query){
+    public function queryRequest($query,$function=null){
+        $this->callfunction = $function;
         parent::queryRequest($query);
         return $this;
     }
     
-    public function version($v){
+    public function version($v=''){
         parent::setVersion($v);
+        return $this;
     }
     
     public function parseData(){

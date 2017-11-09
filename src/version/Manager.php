@@ -10,9 +10,9 @@ class Manager{
         $this->parent = $parent;
     }
     
-    public function call($array=array()){
+    public function call($array=array(),$function=null){
         if(!empty($array)){
-            return $this->parent->queryRequest($array);
+            return $this->parent->queryRequest($array,$function);
         }
     }
     
