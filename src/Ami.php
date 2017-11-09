@@ -13,12 +13,21 @@ class Ami extends Asterisk{
     }
     
     public function output(){
-        parent::amiRequest();
+        return parent::amiRequest();
     }
     
     public function queryRequest($query){
         parent::queryRequest($query);
         return $this;
+    }
+    
+    public function version($v){
+        parent::setVersion($v);
+    }
+    
+    public function parseData(){
+        
+        $this->managerAction;
     }
     
     public function ManagerAction(){
@@ -30,7 +39,7 @@ class Ami extends Asterisk{
                 $this->managerAction = New \Asterisk\version_13\ManagerAction($this);
             break;
             default:
-                $this->managerAction = New \Asterisk\version\ManagerAction($this);
+                $this->managerAction = New \Asterisk\version\Manager($this);
             break;
         }
         return $this->managerAction;

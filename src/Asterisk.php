@@ -29,11 +29,15 @@ class Asterisk{
     /**
      * Defatult
      **/
-    protected $version = '1.8';
+    protected $version = '_';
     /**
      * 
      **/
     private $timeout=10;
+    /**
+     * 
+     **/
+    private $streamTimeout = 10;
     /**
      * 
      **/
@@ -66,13 +70,16 @@ class Asterisk{
     public function queryRequest($query){
         $this->queryRequest = $query;
     }
+    public function setVersion($version){
+        $this->version = $version;
+    }
     private function connect(){
         $this->socket = fsockopen($this->host,$this->port, $errno, $errstr, $this->timeout);
         if (!$this->socket){
            throw new \Exception("$errstr ($errno)");
         }
     }
-    private function amibuildRequest(){
+    private function amiBuildRequest(){
         $this->request  = 'Action: Login'.$this->space(1);
         $this->request .= 'Username: '.$this->username.$this->space(1);
         $this->request .= 'Secret: '.$this->password.$this->space(2); 
@@ -85,27 +92,29 @@ class Asterisk{
         $this->request .= $this->space(1);
         //
         $this->request .= 'Action: Logoff'.$this->space(2);
-        //echo $this->request;
-        //exit;
     }
-    public function amiRequest(){
+    public function amiRequest($function=null){
         $this->connect();
-        $this->amibuildRequest();
-        stream_set_timeout($this->socket, 10);
+        $this->amiBuildRequest();
+        stream_set_timeout($this->socket, $this->streamTimeout);
         fputs($this->socket,$this->request);
         $wrets=fgets($this->socket);
         //
+        $array=array();
         while (!feof($this->socket)){
-           $texto = fgets($this->socket);
-           echo $texto."<br/>";
+           $t = fgets($this->socket);
+           //echo $t.'<br />';
+           if(!empty($t) && $t != $this->space(1) ){ $array[] = $t; }
         }
-        //return $this;
+        if(is_callable($function)){
+            return $function($array);
+        }
+        return $array;
     }
+    
     private function space($n){
         $s = "\r\n";
         return str_repeat($s,$n);
     }
-    public function test(){
-        echo 'Asterisk';
-    }
+    
 }
