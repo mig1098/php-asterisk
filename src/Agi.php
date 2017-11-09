@@ -1,4 +1,5 @@
 <?php
+
 namespace Asterisk;
 
 class Agi extends Asterisk{

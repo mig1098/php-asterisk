@@ -1,8 +1,12 @@
 <?php
 /**
- * @author Miglio Esaud
+ * --------------------------------------------
+ * @author Miglio Esaud <mig1098@hotmail.com>
+ * @site http://mig1098.github.com/php-asterisk
  * @version 1.0
- * @date 2017-11-07
+ * @create 2017-11-07
+ * @update 2017-11-09
+ * --------------------------------------------
  **/
 namespace Asterisk;
 class Asterisk{

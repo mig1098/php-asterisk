@@ -1,4 +1,5 @@
 <?php
+
 namespace Asterisk;
 use Asterisk\utils\Version;
 class Ami extends Asterisk{
