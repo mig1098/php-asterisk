@@ -31,11 +31,11 @@ class Asterisk{
      **/
     protected $version = '_';
     /**
-     * 
+     * conection timeout
      **/
     private $timeout=10;
     /**
-     * 
+     * read connectino timeout
      **/
     private $streamTimeout = 10;
     /**
