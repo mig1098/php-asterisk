@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * --------------------------------------------
+ * @author Miglio Esaud <mig1098@hotmail.com>
+ * @site http://mig1098.github.com/php-asterisk
+ * @version 1.0
+ * @create 2017-11-07
+ * @update 2017-11-09
+ * --------------------------------------------
+ **/
 namespace Asterisk;
 use Asterisk\utils\Version;
 class Ami extends Asterisk{
